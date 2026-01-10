@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<title>Uygulamalar</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+
+<div class="container">
+    <h1>Uygulamalar</h1>
+    <div class="apps" id="apps"></div>
+    <br>
+    <a href="admin.html" style="color:#00f5f5;font-size:12px;">Admin Panel</a>
+</div>
+
+<script>
+// Arkaplan animasyon
+const c=document.getElementById("bg"),x=c.getContext("2d");
+function r(){c.width=innerWidth;c.height=innerHeight}addEventListener("resize",r);r();
+let p=[...Array(60)].map(()=>({x:Math.random()*c.width,y:Math.random()*c.height,dX:(Math.random()-.5)*.5,dY:(Math.random()-.5)*.5}));
+function a(){
+ x.clearRect(0,0,c.width,c.height);
+ x.fillStyle="rgba(0,255,255,0.7)";
+ p.forEach(t=>{t.x+=t.dX;t.y+=t.dY;
+ if(t.x<0||t.x>c.width)t.dX*=-1;
+ if(t.y<0||t.y>c.height)t.dY*=-1;
+ x.beginPath();x.arc(t.x,t.y,2,0,7);x.fill();});
+ requestAnimationFrame(a);
+}a();
+
+// Uygulamaları yükle
+fetch("/api/apps")
+.then(r=>r.json())
+.then(data=>{
+ const div=document.getElementById("apps");
+ data.forEach(app=>{
+   div.innerHTML+=`
+   <div class="card">
+     <img src="${app.logo}">
+     <h3>${app.name}</h3>
+     <a class="btn" href="${app.appstore}" target="_blank">📱 App Store</a>
+     <a class="btn" href="${app.playstore}" target="_blank">🤖 Google Play</a>
+   </div>`;
+ });
+});
+</script>
+</body>
+</html>
