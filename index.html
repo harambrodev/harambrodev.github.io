@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HaramBro</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== NAVBAR ===== -->
+<nav class="navbar">
+  <div class="nav-left">
+    <a href="https://instagram.com" target="_blank">Instagram</a>
+    <a href="https://youtube.com" target="_blank">YouTube</a>
+    <a href="https://ksing.com" target="_blank">Ksing</a>
+  </div>
+
+  <div class="nav-right">
+    <a href="#" class="site-name">Haram Bro</a>
+  </div>
+</nav>
+
+<!-- ===== ARKAPLAN ANİMASYON ===== -->
+<canvas id="bg"></canvas>
+
+<!-- ===== ANA BÖLÜM ===== -->
+<div class="hero">
+  <div class="hero-content">
+    <h1>Hello :)</h1>
+    <p>Agar.io Always Up-to-Date Mod Menu.</p>
+
+    <div class="hero-buttons">
+      <a href="#" class="btn-primary">Raw Mod Download</a>
+      <a href="#" class="btn-secondary">View Demo</a>
+    </div>
+
+    <span class="hero-sub">By Haram Bro</span>
+  </div>
+</div>
+
+<!-- ===== UYGULAMA LİSTESİ ===== -->
+<div class="container">
+  <h2>Uygulamalar</h2>
+  <div class="apps" id="apps"></div>
+</div>
+
+<script>
+// ===== Arkaplan parçacık animasyonu =====
+const c = document.getElementById("bg");
+const ctx = c.getContext("2d");
+
+function resize(){
+  c.width = innerWidth;
+  c.height = innerHeight;
+}
+addEventListener("resize", resize);
+resize();
+
+let particles=[];
+for(let i=0;i<60;i++){
+  particles.push({
+    x:Math.random()*c.width,
+    y:Math.random()*c.height,
+    dx:(Math.random()-0.5)*0.6,
+    dy:(Math.random()-0.5)*0.6,
+    r:Math.random()*2+1
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,c.width,c.height);
+  ctx.fillStyle="rgba(180,0,255,0.6)";
+  particles.forEach(p=>{
+    p.x+=p.dx; p.y+=p.dy;
+    if(p.x<0||p.x>c.width) p.dx*=-1;
+    if(p.y<0||p.y>c.height) p.dy*=-1;
+    ctx.beginPath();
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ===== apps.json verisini yükle =====
+fetch("apps.json")
+.then(r=>r.json())
+.then(data=>{
+  const div=document.getElementById("apps");
+  data.forEach(app=>{
+    div.innerHTML += `
+      <div class="card">
+        <img src="${app.logo}">
+        <h3>${app.name}</h3>
+        <a class="app-btn" href="${app.appstore}" target="_blank">📱 App Store</a>
+        <a class="app-btn" href="${app.playstore}" target="_blank">🤖 Google Play</a>
+      </div>
+    `;
+  });
+});
+</script>
+
+</body>
+</html>
