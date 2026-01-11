@@ -1,66 +1,24 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HaramBro</title>
-<link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Uygulama İndir • QXStyle</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <script src="https://kit.fontawesome.com/yourfontawesomekit.js" crossorigin="anonymous"></script>
 </head>
 <body>
+  <header>
+    <h1>Popüler Uygulamalar</h1>
+    <p>En yeni sürümleri hemen indir!</p>
+  </header>
 
-<!-- ===== NAVBAR ===== -->
-<nav class="navbar">
-  <div class="nav-left">
-    <a href="https://instagram.com" target="_blank">Instagram</a>
-    <a href="https://youtube.com" target="_blank">YouTube</a>
-    <a href="https://ksing.com" target="_blank">Ksing</a>
-  </div>
-  <div class="nav-right">
-    <span class="site-name">HaramBro</span>
-  </div>
-</nav>
+  <main id="app-list"></main>
 
-<!-- ===== HERO ===== -->
-<section class="hero">
-  <div class="hero-content">
-    <span class="tag">New • Version 1.0</span>
-    <h1>Hello :)</h1>
-    <p>Modern Download & Mod Platform</p>
+  <footer>
+    <p>© 2026 Uygulama İndir Sitesi</p>
+  </footer>
 
-    <div class="hero-buttons">
-      <a href="https://harambro5.com" class="btn-primary">Raw Mod Download</a>
-      <a href="#" class="btn-secondary">View Demo</a>
-    </div>
-
-    <div class="hero-sub">By Haram Bro</div>
-  </div>
-</section>
-
-<!-- ===== APP LIST ===== -->
-<section class="apps-section">
-  <h2>Our Apps</h2>
-  <div class="apps" id="apps"></div>
-</section>
-
-<script>
-// apps.json yükle
-fetch("apps.json")
-.then(r => r.json())
-.then(data => {
-  const div = document.getElementById("apps");
-  data.forEach(app => {
-    div.innerHTML += `
-      <div class="card">
-        <img src="${app.logo}">
-        <h3>${app.name}</h3>
-        <a class="app-btn" href="${app.appstore}" target="_blank">📱 App Store</a>
-        <a class="app-btn" href="${app.playstore}" target="_blank">🤖 Google Play</a>
-      </div>
-    `;
-  });
-});
-</script>
-
+  <script src="js/scripts.js"></script>
 </body>
 </html>
-
